@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فروشگاه محصولات دیجیتال</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* استایل‌های قبلی را حفظ می‌کنیم */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+        }
+        
+        /* نوار ناوبری */
+        .navbar {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-links .cart-icon {
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+        header {
+            text-align: center;
+            margin: 20px 0 30px;
+            color: white;
+            width: 100%;
+            padding: 20px;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .homm {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 1200px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+        
+        .a {
+            display: flex;
+            height: 180px;
+            width: 100%;
+            max-width: 400px;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .a:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .image {
+            flex: 0 0 180px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            padding: 15px;
+        }
+        
+        .image img {
+            height: 140px;
+            width: 140px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        
+        .a:hover .image img {
+            transform: scale(1.1);
+        }
+        
+        .msh {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 15px;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .price-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .current-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2e7d32;
+        }
+        
+        .original-price {
+            font-size: 1.1rem;
+            color: #f44336;
+            text-decoration: line-through;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .buy-btn, .add-to-cart {
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .add-to-cart {
+            background: linear-gradient(to right, #3498db, #2980b9);
+        }
+        
+        .buy-btn:hover, .add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .buy-btn:hover {
+            background: linear-gradient(to right, #43A047, #1B5E20);
+        }
+        
+        .add-to-cart:hover {
+            background: linear-gradient(to right, #2980b9, #1f6a9e);
+        }
+        
+        .order-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            max-width: 350px;
+            transform: translateX(120%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-left: 5px solid #4CAF50;
+        }
+        
+        .order-notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .notification-header i {
+            font-size: 24px;
+            color: #4CAF50;
+            margin-left: 10px;
+        }
+        
+        .notification-title {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #2c3e50;
+        }
+        
+        .notification-content {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .notification-content strong {
+            color: #e74c3c;
+        }
+        
+        .notification-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .notification-footer a {
+            background: #3498db;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        
+        .notification-footer a:hover {
+            background: #2980b9;
+        }
+        
+        .close-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .close-btn:hover {
+            background: #c0392b;
+        }
+        
+        footer {
+            color: white;
+            text-align: center;
+            margin-top: auto;
+            padding: 20px;
+            width: 100%;
+            font-size: 1.1rem;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        /* صفحه سبد خرید */
+        .cart-page {
+            display: none;
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin: 20px auto 40px;
+        }
+        
+        .cart-page h2 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cart-item-image {
+            flex: 0 0 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f7fa;
+            padding: 15px;
+        }
+        
+        .cart-item-image img {
+            max-height: 120px;
+            max-width: 120px;
+            object-fit: contain;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .cart-item-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .cart-item-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+        
+        .cart-item-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .remove-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: 600;
+        }
+        
+        .remove-btn:hover {
+            background: #c0392b;
+        }
+        
+        .cart-summary {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .summary-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+        
+        .summary-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .total {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #2e7d32;
+        }
+        
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* صفحه پرداخت */
+        .payment-page {
+            display: none;
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin: 20px auto 40px;
+        }
+        
+        .payment-page h2 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        
+        .payment-form {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* صفحه ورود و ثبت نام */
+        .auth-page {
+            display: none;
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin: 20px auto 40px;
+        }
+        
+        .auth-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #777;
+            transition: all 0.3s;
+        }
+        
+        .auth-tab.active {
+            color: #4CAF50;
+            border-bottom: 3px solid #4CAF50;
+            margin-bottom: -2px;
+        }
+        
+        .auth-form {
+            display: none;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .a {
+                max-width: 100%;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .order-notification {
+                max-width: 90%;
+                right: 5%;
+                left: 5%;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+            }
+            
+            .cart-item-image {
+                width: 100%;
+                flex: 0 0 auto;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- نوار ناوبری -->
+    <div class="navbar">
+        <a href="#" class="logo">دیجی شاپ</a>
+        <div class="nav-links">
+            <a href="#" id="homeLink">خانه</a>
+            <a href="#" id="cartLink" class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </a>
+            <a href="#" id="loginLink">ورود/ثبت‌نام</a>
+        </div>
+    </div>
+    
+    <!-- صفحه اصلی -->
+    <div id="homePage">
+        <header>
+            <h1>فروشگاه محصولات دیجیتال</h1>
+            <p>بهترین محصولات با بهترین قیمت‌ها - تخفیف‌های ویژه برای خریدهای عمده</p>
+        </header>
+        
+        <div class="homm">
+            <!-- محصولات -->
+            <div class="a">
+                <div class="image">
+                    <img src="https://cdn-icons-png.flaticon.com/512/664/664886.png" alt="هدفون">
+                </div>
+                <div class="msh">
+                    <div class="product-title">هدفون حرفه‌ای مدل X200</div>
+                    <div class="price-container">
+                        <span class="current-price">400$</span>
+                        <span class="original-price">600$</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="buy-btn" data-product="هدفون حرفه‌ای مدل X200" data-price="400">خرید</button>
+                        <button class="add-to-cart" data-product="هدفون حرفه‌ای مدل X200" data-price="400">افزودن به سبد</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="a">
+                <div class="image">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2972/2972185.png" alt="موبایل">
+                </div>
+                <div class="msh">
+                    <div class="product-title">گوشی موبایل سامسونگ S24</div>
+                    <div class="price-container">
+                        <span class="current-price">850$</span>
+                        <span class="original-price">1100$</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="buy-btn" data-product="گوشی موبایل سامسونگ S24" data-price="850">خرید</button>
+                        <button class="add-to-cart" data-product="گوشی موبایل سامسونگ S24" data-price="850">افزودن به سبد</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="a">
+                <div class="image">
+                    <img src="https://cdn-icons-png.flaticon.com/512/681/681662.png" alt="لپ تاپ">
+                </div>
+                <div class="msh">
+                    <div class="product-title">لپ تاپ ایسوس ROG</div>
+                    <div class="price-container">
+                        <span class="current-price">1200$</span>
+                        <span class="original-price">1500$</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="buy-btn" data-product="لپ تاپ ایسوس ROG" data-price="1200">خرید</button>
+                        <button class="add-to-cart" data-product="لپ تاپ ایسوس ROG" data-price="1200">افزودن به سبد</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="a">
+                <div class="image">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3463/3463718.png" alt="دوربین">
+                </div>
+                <div class="msh">
+                    <div class="product-title">دوربین کانن EOS R5</div>
+                    <div class="price-container">
+                        <span class="current-price">2100$</span>
+                        <span class="original-price">2500$</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="buy-btn" data-product="دوربین کانن EOS R5" data-price="2100">خرید</button>
+                        <button class="add-to-cart" data-product="دوربین کانن EOS R5" data-price="2100">افزودن به سبد</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="a">
+                <div class="image">
+                    <img src="https://cdn-icons-png.flaticon.com/512/619/619032.png" alt="اسپیکر">
+                </div>
+                <div class="msh">
+                    <div class="product-title">اسپیکر بلوتوثی JBL</div>
+                    <div class="price-container">
+                        <span class="current-price">180$</span>
+                        <span class="original-price">250$</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="buy-btn" data-product="اسپیکر بلوتوثی JBL" data-price="180">خرید</button>
+                        <button class="add-to-cart" data-product="اسپیکر بلوتوثی JBL" data-price="180">افزودن به سبد</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- صفحه سبد خرید -->
+    <div class="cart-page" id="cartPage">
+        <h2>سبد خرید شما</h2>
+        <div class="cart-items" id="cartItems">
+            <!-- آیتم‌های سبد خرید توسط جاوااسکریپت اضافه می‌شوند -->
+        </div>
+        <div class="cart-summary">
+            <h3 class="summary-title">صورتحساب</h3>
+            <div class="summary-details">
+                <span>مجموع:</span>
+                <span id="subtotal">0$</span>
+            </div>
+            <div class="summary-details">
+                <span>تخفیف:</span>
+                <span>0$</span>
+            </div>
+            <div class="summary-details">
+                <span>حمل و نقل:</span>
+                <span>0$</span>
+            </div>
+            <div class="summary-details total">
+                <span>قابل پرداخت:</span>
+                <span id="total">0$</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">پرداخت</button>
+        </div>
+    </div>
+    
+    <!-- صفحه پرداخت -->
+    <div class="payment-page" id="paymentPage">
+        <h2>پرداخت امن</h2>
+        <div class="payment-form">
+            <div class="form-group">
+                <label for="cardNumber">شماره کارت</label>
+                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+            </div>
+            <div class="form-group">
+                <label for="cardHolder">نام دارنده کارت</label>
+                <input type="text" id="cardHolder" placeholder="نام کامل">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="expiryDate">تاریخ انقضا</label>
+                    <input type="text" id="expiryDate" placeholder="MM/YY">
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" placeholder="123">
+                </div>
+            </div>
+            <!-- اضافه کردن فیلدهای جدید برای آدرس و کد پستی -->
+            <div class="form-group">
+                <label for="address">آدرس کامل</label>
+                <textarea id="address" placeholder="آدرس کامل پستی"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="postalCode">کد پستی</label>
+                <input type="text" id="postalCode" placeholder="کد پستی ۱۰ رقمی">
+            </div>
+            <button class="submit-btn" id="payBtn">پرداخت</button>
+        </div>
+    </div>
+    
+    <!-- صفحه ورود و ثبت نام -->
+    <div class="auth-page" id="authPage">
+        <div class="auth-container">
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">ورود</div>
+                <div class="auth-tab" data-tab="register">ثبت‌نام</div>
+            </div>
+            
+            <div class="auth-form active" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">ایمیل</label>
+                    <input type="email" id="loginEmail" placeholder="example@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">رمز عبور</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••">
+                </div>
+                <button class="submit-btn" id="loginBtn">ورود</button>
+            </div>
+            
+            <div class="auth-form" id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">نام کامل</label>
+                    <input type="text" id="registerName" placeholder="نام و نام خانوادگی">
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">ایمیل</label>
+                    <input type="email" id="registerEmail" placeholder="example@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">رمز عبور</label>
+                    <input type="password" id="registerPassword" placeholder="••••••••">
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">تکرار رمز عبور</label>
+                    <input type="password" id="registerConfirmPassword" placeholder="••••••••">
+                </div>
+                <button class="submit-btn" id="registerBtn">ثبت‌نام</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- اعلان سفارش -->
+    <div class="order-notification" id="orderNotification">
+        <div class="notification-header">
+            <i class="fas fa-check-circle"></i>
+            <div class="notification-title">سفارش شما ثبت شد!</div>
+        </div>
+        <div class="notification-content">
+            <p>سفارش محصول <strong id="orderedProduct"></strong> با موفقیت ثبت شد.</p>
+            <p>لطفاً جهت تکمیل فرآیند خرید با شماره زیر تماس بگیرید:</p>
+            <p><strong>شماره ی صاحب فروشگاه</strong></p>
+        </div>
+        <div class="notification-footer">
+            <a href="tel:09123456789">
+                <i class="fas fa-phone"></i> تماس با پشتیبانی
+            </a>
+            <button class="close-btn" id="closeNotification">بستن</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>تمامی حقوق برای این فروشگاه محفوظ است © ۱۴۰۳</p>
+    </footer>
+
+    <script>
+        // متغیرهای جهانی
+        let cart = [];
+        let currentUser = null;
+        
+        // DOM Elements
+        const homePage = document.getElementById('homePage');
+        const cartPage = document.getElementById('cartPage');
+        const paymentPage = document.getElementById('paymentPage');
+        const authPage = document.getElementById('authPage');
+        
+        const homeLink = document.getElementById('homeLink');
+        const cartLink = document.getElementById('cartLink');
+        const loginLink = document.getElementById('loginLink');
+        
+        const cartItems = document.getElementById('cartItems');
+        const cartCount = document.querySelector('.cart-count');
+        const subtotalEl = document.getElementById('subtotal');
+        const totalEl = document.getElementById('total');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const payBtn = document.getElementById('payBtn');
+        
+        // رویدادهای ناوبری
+        homeLink.addEventListener('click', () => showPage('home'));
+        cartLink.addEventListener('click', () => showPage('cart'));
+        loginLink.addEventListener('click', () => showPage('auth'));
+        
+        // نمایش صفحه مورد نظر
+        function showPage(page) {
+            homePage.style.display = 'block';
+            cartPage.style.display = 'none';
+            paymentPage.style.display = 'none';
+            authPage.style.display = 'none';
+            
+            if (page === 'cart') {
+                loadCart();
+                cartPage.style.display = 'block';
+                homePage.style.display = 'none';
+            } else if (page === 'payment') {
+                paymentPage.style.display = 'block';
+                homePage.style.display = 'none';
+            } else if (page === 'auth') {
+                authPage.style.display = 'block';
+                homePage.style.display = 'none';
+            }
+        }
+        
+        // افزودن رویداد به دکمه‌های خرید
+        document.querySelectorAll('.buy-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const productName = this.getAttribute('data-product');
+                showOrderNotification(productName);
+            });
+        });
+        
+        // افزودن رویداد به دکمه‌های افزودن به سبد
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productName = this.getAttribute('data-product');
+                const productPrice = parseFloat(this.getAttribute('data-price'));
+                
+                addToCart(productName, productPrice);
+            });
+        });
+        
+        // افزودن به سبد خرید
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: name,
+                    price: price,
+                    quantity: 1
+                });
+            }
+            
+            saveCart();
+            updateCartCount();
+            showNotification('success', `${name} به سبد خرید اضافه شد!`);
+        }
+        
+        // حذف از سبد خرید
+        function removeFromCart(name) {
+            cart = cart.filter(item => item.name !== name);
+            saveCart();
+            updateCartCount();
+            loadCart();
+        }
+        
+        // ذخیره سبد خرید در localStorage
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+        
+        // بارگیری سبد خرید از localStorage
+        function loadCart() {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                renderCartItems();
+                calculateTotal();
+            }
+        }
+        
+        // به‌روزرسانی تعداد آیتم‌های سبد خرید
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = count;
+        }
+        
+        // نمایش سبد خرید
+        function renderCartItems() {
+            cartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: white; font-size: 1.2rem;">سبد خرید شما خالی است.</p>';
+                return;
+            }
+            
+            cart.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                
+                cartItem.innerHTML = `
+                    <div class="cart-item-image">
+                        <img src="${getProductImage(item.name)}" alt="${item.name}">
+                    </div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">${(item.price * item.quantity).toFixed(2)}$</div>
+                        <div class="cart-item-actions">
+                            <button class="remove-btn" data-name="${item.name}">حذف</button>
+                        </div>
+                    </div>
+                `;
+                
+                cartItems.appendChild(cartItem);
+            });
+            
+            // افزودن رویداد به دکمه‌های حذف
+            document.querySelectorAll('.remove-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productName = this.getAttribute('data-name');
+                    removeFromCart(productName);
+                });
+            });
+        }
+        
+        // محاسبه جمع کل
+        function calculateTotal() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = subtotal;
+            
+            subtotalEl.textContent = `${subtotal.toFixed(2)}$`;
+            totalEl.textContent = `${total.toFixed(2)}$`;
+        }
+        
+        // دریافت تصویر محصول بر اساس نام
+        function getProductImage(name) {
+            const products = {
+                'هدفون حرفه‌ای مدل X200': 'https://cdn-icons-png.flaticon.com/512/664/664886.png',
+                'گوشی موبایل سامسونگ S24': 'https://cdn-icons-png.flaticon.com/512/2972/2972185.png',
+                'لپ تاپ ایسوس ROG': 'https://cdn-icons-png.flaticon.com/512/681/681662.png',
+                'دوربین کانن EOS R5': 'https://cdn-icons-png.flaticon.com/512/3463/3463718.png',
+                'اسپیکر بلوتوثی JBL': 'https://cdn-icons-png.flaticon.com/512/619/619032.png'
+            };
+            
+            return products[name] || 'https://via.placeholder.com/150';
+        }
+        
+        // نمایش اعلان
+        function showNotification(type, message) {
+            alert(message);
+        }
+        
+        // اعلان سفارش
+        function showOrderNotification(productName) {
+            const notification = document.getElementById('orderNotification');
+            const productElement = document.getElementById('orderedProduct');
+            
+            productElement.textContent = productName;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 10000);
+        }
+        
+        // بستن اعلان سفارش
+        document.getElementById('closeNotification').addEventListener('click', function() {
+            document.getElementById('orderNotification').classList.remove('show');
+        });
+        
+        // رویداد پرداخت
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                showNotification('error', 'سبد خرید شما خالی است!');
+                return;
+            }
+            
+            if (!currentUser) {
+                showPage('auth');
+                showNotification('info', 'لطفاً ابتدا وارد شوید یا ثبت‌نام کنید.');
+                return;
+            }
+            
+            showPage('payment');
+        });
+        
+        // رویداد پرداخت نهایی
+        payBtn.addEventListener('click', () => {
+            const cardNumber = document.getElementById('cardNumber').value;
+            const cardHolder = document.getElementById('cardHolder').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+            const address = document.getElementById('address').value;
+            const postalCode = document.getElementById('postalCode').value;
+            
+            if (!cardNumber || !cardHolder || !expiryDate || !cvv || !address || !postalCode) {
+                showNotification('error', 'لطفاً تمامی فیلدها را پر کنید.');
+                return;
+            }
+            
+            // شبیه‌سازی پرداخت موفق
+            setTimeout(() => {
+                // ساخت پیام سفارش برای واتساپ
+                const phoneNumber = '989123456789'; // شماره صاحب فروشگاه (بدون + و صفر اول)
+                const message = generateWhatsAppMessage(address, postalCode);
+                
+                // باز کردن لینک واتساپ با پیام سفارش
+                window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
+                
+                // پاک کردن سبد خرید
+                cart = [];
+                saveCart();
+                updateCartCount();
+                showPage('home');
+                showNotification('success', 'پرداخت با موفقیت انجام شد! اطلاعات سفارش به صاحب فروشگاه ارسال شد.');
+            }, 1000);
+        });
+        
+        // تابع ساخت پیام واتساپ
+        function generateWhatsAppMessage(address, postalCode) {
+            let message = `سفارش جدید!\n\n`;
+            message += `مشتری: ${currentUser.name} (${currentUser.email})\n`;
+            message += `آدرس: ${address}\n`;
+            message += `کد پستی: ${postalCode}\n\n`;
+            message += `محصولات:\n`;
+            
+            cart.forEach(item => {
+                message += `- ${item.name}: ${item.quantity} عدد - ${item.price * item.quantity}$\n`;
+            });
+            
+            message += `\nجمع کل: ${document.getElementById('total').textContent}`;
+            
+            return message;
+        }
+        
+        // مدیریت فرم‌های ورود و ثبت‌نام
+        document.querySelectorAll('.auth-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+                
+                // فعال‌سازی تب
+                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // نمایش فرم مربوطه
+                document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+                document.getElementById(`${tabName}Form`).classList.add('active');
+            });
+        });
+        
+        // رویداد ورود
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                showNotification('error', 'لطفاً ایمیل و رمز عبور را وارد کنید.');
+                return;
+            }
+            
+            // شبیه‌سازی ورود موفق
+            currentUser = { email, name: email.split('@')[0] };
+            showPage('cart');
+            showNotification('success', 'با موفقیت وارد شدید!');
+        });
+        
+        // رویداد ثبت‌نام
+        document.getElementById('registerBtn').addEventListener('click', function() {
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            
+            if (!name || !email || !password || !confirmPassword) {
+                showNotification('error', 'لطفاً تمامی فیلدها را پر کنید.');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showNotification('error', 'رمز عبور و تکرار آن مطابقت ندارند.');
+                return;
+            }
+            
+            // شبیه‌سازی ثبت‌نام موفق
+            currentUser = { name, email };
+            showPage('cart');
+            showNotification('success', 'ثبت‌نام با موفقیت انجام شد!');
+        });
+        
+        // مقداردهی اولیه
+        loadCart();
+        updateCartCount();
+    </script>
+</body>
+</html>
